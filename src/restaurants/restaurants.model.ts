@@ -1,5 +1,4 @@
-import { Column, DataType, Table } from "sequelize-typescript";
-import { Model } from "sequelize";
+import { Column, DataType, Model, Table } from "sequelize-typescript";
 
 export interface RestaurantsCreationAttrs {
   title: string,

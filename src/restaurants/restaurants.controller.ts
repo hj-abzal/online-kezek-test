@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import { RestaurantService } from "./restaurant.service";
+import { RestaurantsService } from "./restaurants.service";
 import { CreateRestaurantsDto } from "./create-restaurants.dto";
 
 @Controller("restaurants")
-export class RestaurantController {
-  constructor(private restaurantService: RestaurantService) {
+export class RestaurantsController {
+  constructor(private restaurantService: RestaurantsService) {
   }
 
   @Post()

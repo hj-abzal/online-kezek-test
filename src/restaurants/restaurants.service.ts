@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { Restaurants } from "./restaurant.model";
+import { Restaurants } from "./restaurants.model";
 import { CreateRestaurantsDto } from "./create-restaurants.dto";
 
 @Injectable()
-export class RestaurantService {
+export class RestaurantsService {
   constructor(@InjectModel(Restaurants) private restaurantsRepository: typeof Restaurants) {
   }
 
