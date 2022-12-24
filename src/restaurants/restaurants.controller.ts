@@ -1,14 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { RestaurantsService } from "./restaurants.service";
 import { CreateRestaurantsDto } from "./create-restaurants.dto";
+import { OrdersService } from "../orders/orders.service";
 
 @Controller("restaurants")
 export class RestaurantsController {
-  constructor(private restaurantService: RestaurantsService) {
+  constructor(
+    private restaurantService: RestaurantsService,
+    private ordersService: OrdersService
+  ) {
   }
 
   @Post()
-  createRestaurants(@Body() dto: CreateRestaurantsDto) {
+  async createRestaurants(@Body() dto: CreateRestaurantsDto) {
+    const find = await this.restaurantService.getByUrl(dto.url)
+    if (find) {
+      throw new BadRequestException({message: 'url already exist'});
+    }
     return this.restaurantService.create(dto);
   }
 
@@ -16,6 +24,15 @@ export class RestaurantsController {
   getAllRestaurants() {
     return this.restaurantService.getAll();
   }
+
+  @Get("/:id/orders")
+  getOne(
+    @Param("id") id: number
+  ) {
+    return this.ordersService.getAll(id)
+  }
+
+
 
   @Put("/:id")
   updateRestaurantId(

@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { Restaurants } from "./restaurants.model";
 import { CreateRestaurantsDto } from "./create-restaurants.dto";
+import { Orders } from "../orders/orders.model";
 
 @Injectable()
 export class RestaurantsService {
@@ -24,6 +25,14 @@ export class RestaurantsService {
 
   async getAll(): Promise<Restaurants[]>  {
     return this.restaurantsRepository.findAll();
+  }
+
+  async getOne(id: number): Promise<Restaurants>  {
+    return this.restaurantsRepository.findByPk(id, {include: Orders});
+  }
+
+  async getByUrl(url: string): Promise<Restaurants>  {
+    return this.restaurantsRepository.findOne({where: {url}});
   }
 
   async update(id: number, atr: CreateRestaurantsDto ): Promise<any> {

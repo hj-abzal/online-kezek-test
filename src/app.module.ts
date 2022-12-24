@@ -3,6 +3,8 @@ import { ConfigModule } from "@nestjs/config";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { RestaurantsModule } from "./restaurants/restaurants.module";
 import { Restaurants } from "./restaurants/restaurants.model";
+import { OrdersModule } from "./orders/orders.module";
+import { Orders } from "./orders/orders.model";
 
 @Module({
   imports: [
@@ -17,10 +19,11 @@ import { Restaurants } from "./restaurants/restaurants.model";
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       ssl: false,
-      models: [Restaurants],
+      models: [Restaurants, Orders],
       autoLoadModels: true
     }),
     RestaurantsModule,
+    OrdersModule,
   ],
 })
 export class AppModule {
