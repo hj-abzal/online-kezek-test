@@ -1,7 +1,6 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { RestaurantsService } from "./restaurants.service";
 import { CreateRestaurantsDto } from "./create-restaurants.dto";
-import { OrdersService } from "../orders/orders.service";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Restaurants } from "./restaurants.model";
 
@@ -10,7 +9,6 @@ import { Restaurants } from "./restaurants.model";
 export class RestaurantsController {
   constructor(
     private restaurantService: RestaurantsService,
-    private ordersService: OrdersService
   ) {
   }
 
@@ -39,7 +37,7 @@ export class RestaurantsController {
   getOne(
     @Param("id") id: number
   ) {
-    return this.ordersService.getAll(id)
+    return this.restaurantService.getOne(id)
   }
 
 
