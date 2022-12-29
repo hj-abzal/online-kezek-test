@@ -1,4 +1,6 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export class CreateOrderDto {
-    readonly key: string;
+    @ApiProperty({example: 1, description: 'id of restaurant'})
     readonly restaurant_id: number;
 }
