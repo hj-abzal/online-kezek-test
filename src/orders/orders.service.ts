@@ -9,7 +9,8 @@ export class OrdersService {
   }
 
   async create(dto: CreateOrderDto): Promise<Orders> {
-    return this.ordersRepository.create(dto)
+    const key = this.getRandomKey();
+    return this.ordersRepository.create({ ...dto, key })
   }
 
   async delete(id: number): Promise<any> {
@@ -34,4 +35,18 @@ export class OrdersService {
       return {message: 'ok', is_ready}
     })
   }
+
+
+  getRandomKey = () => {
+    return `${this.toAlpha(this.getRandomInt(27))}-${this.getRandomInt(1000)}`
+  }
+
+  getRandomInt(max:  number) {
+    return Math.floor(Math.random() * max);
+  }
+
+  toAlpha = (num:  number) => {
+    const leveller = 64;
+    return String.fromCharCode(num + leveller);
+  };
 }

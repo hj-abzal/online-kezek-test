@@ -3,8 +3,8 @@ import { Restaurants } from "../restaurants/restaurants.model";
 import { ApiProperty } from "@nestjs/swagger";
 
 export interface OrdersCreationAttrs {
-  key: string,
-  restaurant_id: number
+  restaurant_id: number,
+  key: string
 }
 
 @Table({ tableName: "orders" })
