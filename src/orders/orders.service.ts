@@ -15,9 +15,12 @@ export class OrdersService {
 
   async delete(id: number): Promise<any> {
     return this.ordersRepository.destroy({where: {id}})
-      .then(() => {
-        return {message: 'ok', id};
-      })
+      .then((deletedRows) => {
+        if (deletedRows === 1) {
+          return {message: 'ok', id};
+        } else {
+          throw new BadRequestException({in: 'no such element'});
+        }      })
       .catch(() => {
         throw new BadRequestException({in: 'delete'});
       });
@@ -31,9 +34,16 @@ export class OrdersService {
     return this.ordersRepository.update(
       {is_ready},
       {where: {id}}
-    ).then(() => {
-      return {message: 'ok', is_ready}
+    ).then((updated) => {
+      if (updated[0] === 1) {
+        return {message: 'ok', id};
+      } else {
+        throw new BadRequestException({in: 'not updated'});
+      }
     })
+      .catch(() => {
+        throw new BadRequestException({in: 'not updated'});
+      })
   }
 
 
