@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  q-back:
+    build: .
+    container_name: q-back
+    restart: always
+    network_mode: host
+    command:
+      "yarn start:prod"
